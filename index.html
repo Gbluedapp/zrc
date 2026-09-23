@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ZRC-20 Tokens on Zcash — Deploy, Mint, Transfer</title>
+  <meta name="description" content="A self-custodial ZRC-20 platform: claim a ticker, run a fair mint, and move balances on Zcash. Every operation is plain JSON written on-chain." />
+  <meta name="author" content="ZRC20" />
+  <meta property="og:title" content="ZRC-20 Tokens on Zcash" />
+  <meta property="og:description" content="Deploy, mint, and transfer ZRC-20 fungible tokens from a wallet you control." />
+  <meta property="og:type" content="website" />
+  <meta name="twitter:card" content="summary_large_image" />
+  
+  <link rel="icon" href="image/favicon.png" type="image/png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Work+Sans:wght@400;500;600;700&display=swap" />
+  
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+  <!-- Top Drift Ticker Banner -->
+  <div class="banner-drift-wrap">
+    <div class="banner-drift">
+      <div class="drift-track">
+        <span>ZRC20 · ZRC-20 STANDARD</span>
+        <span class="text-signal">● LIVE</span>
+        <span>ZCASH MAINNET</span>
+        <span>DEPLOY · MINT · TRANSFER</span>
+        <span class="text-coral">FAIR MINTS</span>
+        <span>KEYS STAY LOCAL</span>
+      </div>
+      <div class="drift-track" aria-hidden="true">
+        <span>ZRC20 · ZRC-20 STANDARD</span>
+        <span class="text-signal">● LIVE</span>
+        <span>ZCASH MAINNET</span>
+        <span>DEPLOY · MINT · TRANSFER</span>
+        <span class="text-coral">FAIR MINTS</span>
+        <span>KEYS STAY LOCAL</span>
+      </div>
+      <div class="drift-track" aria-hidden="true">
+        <span>ZRC20 · ZRC-20 STANDARD</span>
+        <span class="text-signal">● LIVE</span>
+        <span>ZCASH MAINNET</span>
+        <span>DEPLOY · MINT · TRANSFER</span>
+        <span class="text-coral">FAIR MINTS</span>
+        <span>KEYS STAY LOCAL</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Sticky Header -->
+  <header class="site-header">
+    <div class="header-container">
+      <div class="header-left">
+        <a href="#" class="brand-link" aria-label="ZRC20 home">
+          <img src="image/zrc20-logo-s8tTh3K0.png" alt="ZRC20 Logo" class="brand-logo" />
+          <span class="brand-title">ZRC20</span>
+        </a>
+        <nav class="nav-links">
+          <a href="#" class="nav-link active">Tokens</a>
+          <a href="#" class="nav-link open-deploy-btn">Deploy</a>
+          <a href="#" class="nav-link open-mint-btn">Mint</a>
+          <a href="#" class="nav-link open-transfer-btn">Transfer</a>
+          <a href="#" class="nav-link">Market</a>
+          <a href="#" class="nav-link">Balances</a>
+          <a href="https://docs.zrc20.io" target="_blank" rel="noreferrer" class="nav-link">Docs</a>
+        </nav>
+      </div>
+
+      <div class="header-actions">
+        <button class="btn btn-primary connect-wallet-btn" aria-label="Connect wallet">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M19 7V4a1 1 0 0 0-1-1H5a2 2 0 0 0 0 4h15a1 1 0 0 1 1 1v4h-3a2 2 0 0 0 0 4h3a1 1 0 0 0 1-1v-2a1 1 0 0 0-1-1"></path>
+            <path d="M3 5v14a2 2 0 0 0 2 2h15a1 1 0 0 0 1-1v-4"></path>
+          </svg>
+          <span class="wallet-btn-label">Connect wallet</span>
+        </button>
+        <button class="btn btn-icon mobile-menu-btn" id="mobile-menu-toggle" aria-label="Toggle navigation menu">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M4 6h16M4 12h16M4 18h16"></path>
+          </svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- Mobile Nav Drawer -->
+    <div class="mobile-nav-panel" id="mobile-nav-panel">
+      <a href="#" class="mobile-nav-link">Tokens</a>
+      <a href="#" class="mobile-nav-link open-deploy-btn">Deploy</a>
+      <a href="#" class="mobile-nav-link open-mint-btn">Mint</a>
+      <a href="#" class="mobile-nav-link open-transfer-btn">Transfer</a>
+      <a href="#" class="mobile-nav-link">Market</a>
+      <a href="#" class="mobile-nav-link">Balances</a>
+      <a href="https://docs.zrc20.io" target="_blank" rel="noreferrer" class="mobile-nav-link">Docs</a>
+    </div>
+  </header>
+
+  <main style="flex: 1;">
+    <!-- Hero Section -->
+    <section class="hero-section">
+      <div class="hero-grid">
+        <!-- Left 7 columns -->
+        <div class="hero-main">
+          <div>
+            <span class="eyebrow">ZRC-20 · ZCASH MAINNET</span>
+            <h1 class="hero-heading">
+              Deploy a ticker. <em class="coral-italic">Mint it fairly.</em> Move it.
+            </h1>
+            <p class="hero-description">
+              ZRC-20 is a fungible token standard for Zcash: three operations written as plain JSON, replayed in block order to derive every balance. No contracts, no custodians.
+            </p>
+          </div>
+
+          <div class="hero-actions">
+            <button class="btn btn-secondary open-wallet-btn">Backup Wallet</button>
+            <button class="btn btn-outline open-wallet-btn">Claim/Stake $Cash</button>
+          </div>
+        </div>
+
+        <!-- Right 5 columns (2x2 Grid) -->
+        <div class="hero-stats">
+          <div class="stat-box">
+            <div class="eyebrow">TICKERS</div>
+            <div class="stat-value num" id="stat-tickers">44</div>
+            <div class="stat-label">deployed</div>
+          </div>
+          <div class="stat-box">
+            <div class="eyebrow">STILL MINTING</div>
+            <div class="stat-value num" id="stat-minting">36</div>
+            <div class="stat-label">open supply</div>
+          </div>
+          <div class="stat-box">
+            <div class="eyebrow">HOLDERS</div>
+            <div class="stat-value num" id="stat-holders">841</div>
+            <div class="stat-label">addresses</div>
+          </div>
+          <div class="stat-box">
+            <div class="eyebrow">OPERATIONS</div>
+            <div class="stat-value num" id="stat-operations">23633</div>
+            <div class="stat-label">on-chain</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Token Board Section -->
+    <section class="content-section">
+      <div class="board-header">
+        <div>
+          <span class="eyebrow">Token board</span>
+          <h2 class="board-title">All tickers</h2>
+        </div>
+
+        <div class="board-controls">
+          <input type="text" id="search-input" class="search-input num" placeholder="Search ticker" />
+          <div class="filter-group">
+            <button class="filter-btn active" data-filter="Newest">Newest</button>
+            <button class="filter-btn" data-filter="Progress">Progress</button>
+            <button class="filter-btn" data-filter="Holders">Holders</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tokens Table -->
+      <div class="table-card">
+        <div class="table-wrapper">
+          <div class="table-header-row">
+            <span>Ticker</span>
+            <span>Max supply</span>
+            <span>Per mint</span>
+            <span>Holders</span>
+            <span>Mint progress</span>
+          </div>
+          <div class="table-body" id="token-table-body">
+            <!-- Dynamic rows rendered via script.js -->
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Recent Operations & Wallet Card Section -->
+    <section class="bottom-section">
+      <div class="split-grid">
+        <!-- 8 cols: Recent Operations -->
+        <div class="operations-card">
+          <div class="operations-header">
+            <h3 class="operations-title">Recent operations</h3>
+            <span class="live-indicator">
+              <span class="status-pulse"></span>
+              Live
+            </span>
+          </div>
+          <ul class="operations-list" id="operations-list">
+            <!-- Rendered by script.js -->
+          </ul>
+        </div>
+
+        <!-- 4 cols: Wallet Aside -->
+        <aside class="wallet-aside">
+          <div>
+            <div class="eyebrow" style="color: rgba(244, 240, 232, 0.5);">Your wallet</div>
+            <div class="wallet-balance-text" id="aside-wallet-balance">Not connected</div>
+            <div class="wallet-note">Self-custodial · stored locally</div>
+          </div>
+          <button class="wallet-btn" id="aside-wallet-btn">Connect wallet</button>
+        </aside>
+      </div>
+    </section>
+  </main>
+
+  <!-- Site Footer -->
+  <footer class="site-footer">
+    <div class="footer-container">
+      <div class="footer-links">
+        <a href="#" class="footer-link open-deploy-btn">Deploy</a>
+        <a href="#" class="footer-link open-mint-btn">Mint</a>
+        <a href="#" class="footer-link open-transfer-btn">Transfer</a>
+        <a href="#" class="footer-link">Marketplace</a>
+        <a href="#" class="footer-link">Balances</a>
+        <a href="https://docs.zrc20.io" target="_blank" rel="noreferrer" class="footer-link">Docs</a>
+        <a href="https://docs.zrc20.io" target="_blank" rel="noreferrer" class="footer-link">Specification</a>
+        <a href="https://cipherscan.app" target="_blank" rel="noreferrer" class="footer-link">Explorer</a>
+      </div>
+      <p class="footer-disclaimer">
+        ZRC20 is a self-custodial platform for ZRC-20 tokens on Zcash. Keys stay in your browser. Nothing here is financial advice.
+      </p>
+    </div>
+  </footer>
+
+  <!-- ==================== MODALS ==================== -->
+
+  <!-- Wallet Setup Modal -->
+  <div class="modal-backdrop" id="wallet-modal">
+    <div class="modal-card wallet-setup-card">
+      <div class="modal-header">
+        <h3 class="modal-title wallet-setup-title">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 7.5A2.5 2.5 0 0 1 5.5 5H19a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H5.5A2.5 2.5 0 0 1 3 16.5z"></path><path d="M3 7h15a3 3 0 0 1 3 3v1h-4a2 2 0 0 0 0 4h4v1"></path></svg>
+          Set up wallet
+        </h3>
+        <button class="modal-close" aria-label="Close modal">&times;</button>
+      </div>
+      <div class="wallet-setup-tabs" role="tablist" aria-label="Wallet setup mode">
+        <button class="wallet-setup-tab" id="wallet-create-tab" type="button" role="tab" aria-selected="false">Create</button>
+        <button class="wallet-setup-tab active" id="wallet-import-tab" type="button" role="tab" aria-selected="true">Import</button>
+      </div>
+      <form id="wallet-setup-form">
+        <input class="wallet-name-input" type="text" value="Main wallet" aria-label="Wallet name" />
+        <textarea class="wallet-seed-input" id="wallet-seed-input" placeholder="Seed phrase or WIF private key" aria-label="Seed phrase or WIF private key"></textarea>
+        <input class="wallet-password-input" id="wallet-password-input" type="password" placeholder="Password (encrypts the key on this device)" aria-label="Wallet password" />
+        <button class="wallet-submit-btn" id="wallet-submit-btn" type="submit">Import wallet</button>
+      </form>
+      <div class="wallet-security-note">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3 4.5 6v5.5c0 4.7 3.2 8.1 7.5 9.5 4.3-1.4 7.5-4.8 7.5-9.5V6z"></path><path d="m9.5 12 1.7 1.7 3.5-3.5"></path></svg>
+        <span>Keys are generated in your browser, encrypted with your password, and never leave this device.</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Deploy Ticker Modal -->
+  <div class="modal-backdrop" id="deploy-modal">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3 class="modal-title">Deploy a Ticker</h3>
+        <button class="modal-close" aria-label="Close modal">&times;</button>
+      </div>
+      <form id="deploy-form">
+        <div class="form-group">
+          <label class="form-label">Ticker (1–8 characters)</label>
+          <input type="text" id="deploy-tick" class="form-input" placeholder="e.g. cash, dark, zoro" maxlength="8" required />
+        </div>
+        <div class="form-group">
+          <label class="form-label">Max Supply</label>
+          <input type="number" id="deploy-max" class="form-input num" value="21000000" min="1" required />
+        </div>
+        <div class="form-group">
+          <label class="form-label">Limit Per Mint</label>
+          <input type="number" id="deploy-lim" class="form-input num" value="1000" min="1" required />
+        </div>
+        <div>
+          <label class="form-label">On-chain JSON Payload</label>
+          <pre class="json-preview-box" id="deploy-json-preview"></pre>
+        </div>
+        <button type="submit" class="btn btn-secondary" style="width: 100%; margin-top: 10px;">Broadcast Deploy Operation</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Mint Tokens Modal -->
+  <div class="modal-backdrop" id="mint-modal">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3 class="modal-title">Mint Tokens</h3>
+        <button class="modal-close" aria-label="Close modal">&times;</button>
+      </div>
+      <form id="mint-form">
+        <div class="form-group">
+          <label class="form-label">Select Ticker</label>
+          <select id="mint-tick" class="form-select"></select>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Amount to Mint</label>
+          <input type="number" id="mint-amt" class="form-input num" value="1000" min="1" required />
+        </div>
+        <div>
+          <label class="form-label">On-chain JSON Payload</label>
+          <pre class="json-preview-box" id="mint-json-preview"></pre>
+        </div>
+        <button type="submit" class="btn btn-secondary" style="width: 100%; margin-top: 10px;">Broadcast Mint Operation</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Transfer Tokens Modal -->
+  <div class="modal-backdrop" id="transfer-modal">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3 class="modal-title">Transfer Tokens</h3>
+        <button class="modal-close" aria-label="Close modal">&times;</button>
+      </div>
+      <form id="transfer-form">
+        <div class="form-group">
+          <label class="form-label">Select Ticker</label>
+          <select id="transfer-tick" class="form-select"></select>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Recipient Address</label>
+          <input type="text" id="transfer-to" class="form-input num" placeholder="t1..." required />
+        </div>
+        <div class="form-group">
+          <label class="form-label">Amount</label>
+          <input type="number" id="transfer-amt" class="form-input num" value="100" min="1" required />
+        </div>
+        <div>
+          <label class="form-label">On-chain JSON Payload</label>
+          <pre class="json-preview-box" id="transfer-json-preview"></pre>
+        </div>
+        <button type="submit" class="btn btn-secondary" style="width: 100%; margin-top: 10px;">Broadcast Transfer Operation</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Token Detail Modal -->
+  <div class="modal-backdrop" id="token-detail-modal">
+    <div class="modal-card" style="max-width: 560px;">
+      <div class="modal-header">
+        <h3 class="modal-title" id="detail-title">Token Details</h3>
+        <button class="modal-close" aria-label="Close modal">&times;</button>
+      </div>
+      <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 20px;">
+        <div class="token-avatar" id="detail-avatar" style="width: 36px; height: 36px; font-size: 14px;">CA</div>
+        <div>
+          <div style="display: flex; align-items: center; gap: 8px;">
+            <span class="font-display" id="detail-tick" style="font-size: 22px;">cash</span>
+            <span id="detail-badge"></span>
+          </div>
+          <div class="num" id="detail-deployer" style="font-size: 11px; color: var(--muted-foreground); word-break: break-all;"></div>
+        </div>
+      </div>
+
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 16px;">
+        <div style="padding: 12px; background: rgba(0,0,0,0.03); border-radius: 4px;">
+          <div class="eyebrow">Max Supply</div>
+          <div class="num font-display" id="detail-max" style="font-size: 20px; margin-top: 4px;">21,000,000</div>
+        </div>
+        <div style="padding: 12px; background: rgba(0,0,0,0.03); border-radius: 4px;">
+          <div class="eyebrow">Per-Mint Limit</div>
+          <div class="num font-display" id="detail-lim" style="font-size: 20px; margin-top: 4px;">1,000</div>
+        </div>
+        <div style="padding: 12px; background: rgba(0,0,0,0.03); border-radius: 4px;">
+          <div class="eyebrow">Minted So Far</div>
+          <div class="num font-display" id="detail-minted" style="font-size: 20px; margin-top: 4px;">21,000,000</div>
+        </div>
+        <div style="padding: 12px; background: rgba(0,0,0,0.03); border-radius: 4px;">
+          <div class="eyebrow">Holders</div>
+          <div class="num font-display" id="detail-holders" style="font-size: 20px; margin-top: 4px;">284</div>
+        </div>
+      </div>
+
+      <div>
+        <div class="eyebrow" style="margin-bottom: 6px;">Deployment Protocol JSON</div>
+        <pre class="json-preview-box" id="detail-json" style="margin-top: 0;"></pre>
+      </div>
+
+      <div style="display: flex; gap: 10px; margin-top: 16px;">
+        <button class="btn btn-secondary" id="detail-mint-btn" style="flex: 1;">Mint This Token</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Vanilla JS Engine -->
+  <script src="js/script.js"></script>
+</body>
+</html>

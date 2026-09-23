@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Set up wallet</title>
+  <meta name="description" content="Set up your wallet - Create a new wallet or import your seed phrase or WIF private key securely.">
+  <link rel="icon" type="image/svg+xml" href="image/favicon.svg">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- Main Container -->
+  <main class="app-container">
+    
+    <!-- Re-open trigger when modal is closed -->
+    <div id="reopenContainer" class="reopen-container">
+      <button id="reopenBtn" class="reopen-btn" aria-label="Open wallet setup">
+        <span class="brand-icon">
+          <img src="image/wallet.svg" alt="Wallet icon" width="26" height="26">
+        </span>
+        <span>Open Wallet Setup</span>
+      </button>
+    </div>
+
+    <!-- Set up wallet Dialog Box -->
+    <section id="walletModal" class="wallet-modal" role="dialog" aria-labelledby="modalTitle" aria-modal="true">
+      
+      <!-- Modal Header -->
+      <header class="modal-header">
+        <div class="header-brand">
+          <div class="brand-icon" aria-hidden="true">
+            <img src="image/wallet.svg" alt="Wallet" width="26" height="26">
+          </div>
+          <h1 id="modalTitle" class="modal-title">Set up wallet</h1>
+        </div>
+        <button id="closeBtn" class="close-btn" aria-label="Close dialog" title="Close">
+          <img src="image/close.svg" alt="Close" width="18" height="18">
+        </button>
+      </header>
+
+      <!-- Segmented Tabs (Create / Import) -->
+      <nav class="segmented-control" role="tablist" aria-label="Setup Mode">
+        <button id="tabCreate" class="tab-btn" role="tab" aria-selected="false" aria-controls="viewCreate">
+          Create
+        </button>
+        <button id="tabImport" class="tab-btn active" role="tab" aria-selected="true" aria-controls="viewImport">
+          Import
+        </button>
+      </nav>
+
+      <!-- VIEW 1: Import Wallet (Exact match to screenshot) -->
+      <form id="viewImport" class="form-view" onsubmit="return false;">
+        
+        <!-- Wallet Name Input -->
+        <div class="input-wrapper">
+          <input 
+            type="text" 
+            id="importWalletName" 
+            class="text-input" 
+            value="Main wallet" 
+            placeholder="Wallet name"
+            aria-label="Wallet name"
+            spellcheck="false"
+          >
+        </div>
+
+        <!-- Seed Phrase or WIF Private Key Textarea -->
+        <div class="textarea-wrapper">
+          <textarea 
+            id="seedOrKeyInput" 
+            class="textarea-input" 
+            placeholder="Seed phrase or WIF private key"
+            aria-label="Seed phrase or WIF private key"
+            spellcheck="false"
+            autocomplete="off"
+            autocorrect="off"
+            autocapitalize="off"
+          ></textarea>
+        </div>
+        <div id="importHint" class="input-hint" aria-live="polite"></div>
+
+        <!-- Password Input -->
+        <div class="input-wrapper password-wrapper">
+          <input 
+            type="password" 
+            id="importPassword" 
+            class="text-input password-input" 
+            placeholder="Password (encrypts the key on this device)"
+            aria-label="Password (encrypts the key on this device)"
+            autocomplete="new-password"
+          >
+          <button type="button" id="toggleImportPassword" class="password-toggle-btn" aria-label="Toggle password visibility">
+            <img src="image/eye.svg" alt="Toggle visibility" width="18" height="18">
+          </button>
+        </div>
+
+        <!-- Primary CTA Button -->
+        <button type="submit" id="importSubmitBtn" class="primary-btn">
+          Import wallet
+        </button>
+
+        <!-- Security Note -->
+        <footer class="security-note">
+          <div class="security-icon" aria-hidden="true">
+            <img src="image/shield.svg" alt="Shield check" width="20" height="20">
+          </div>
+          <p class="security-text">
+            Keys are generated in your browser, encrypted with your password, and never leave this device.
+          </p>
+        </footer>
+
+      </form>
+
+      <!-- VIEW 2: Create Wallet (Fully functional creation flow) -->
+      <form id="viewCreate" class="form-view is-hidden" onsubmit="return false;">
+        
+        <!-- Wallet Name Input -->
+        <div class="input-wrapper">
+          <input 
+            type="text" 
+            id="createWalletName" 
+            class="text-input" 
+            value="Main wallet" 
+            placeholder="Wallet name"
+            aria-label="Wallet name"
+            spellcheck="false"
+          >
+        </div>
+
+        <!-- Generated Seed Words Container -->
+        <div class="seed-generator-box">
+          <div class="seed-header">
+            <span class="seed-title">Recovery Seed Phrase</span>
+            <div class="seed-actions">
+              <button type="button" id="copySeedBtn" class="icon-sub-btn" title="Copy words">
+                <img src="image/copy.svg" alt="Copy" width="14" height="14">
+                <span>Copy</span>
+              </button>
+              <button type="button" id="refreshSeedBtn" class="icon-sub-btn" title="Generate new words">
+                <img src="image/refresh.svg" alt="Regenerate" width="14" height="14">
+                <span>New</span>
+              </button>
+            </div>
+          </div>
+          <div id="seedGrid" class="seed-grid" aria-label="12-word mnemonic phrase">
+            <!-- Dynamically populated via JS -->
+          </div>
+        </div>
+
+        <!-- Password Inputs -->
+        <div class="input-wrapper password-wrapper">
+          <input 
+            type="password" 
+            id="createPassword" 
+            class="text-input password-input" 
+            placeholder="Password (encrypts the key on this device)"
+            aria-label="Password (encrypts the key on this device)"
+            autocomplete="new-password"
+          >
+          <button type="button" id="toggleCreatePassword" class="password-toggle-btn" aria-label="Toggle password visibility">
+            <img src="image/eye.svg" alt="Toggle visibility" width="18" height="18">
+          </button>
+        </div>
+
+        <div class="input-wrapper">
+          <input 
+            type="password" 
+            id="createPasswordConfirm" 
+            class="text-input" 
+            placeholder="Confirm password"
+            aria-label="Confirm password"
+            autocomplete="new-password"
+          >
+        </div>
+
+        <!-- Primary CTA Button -->
+        <button type="submit" id="createSubmitBtn" class="primary-btn">
+          Create wallet
+        </button>
+
+        <!-- Security Note -->
+        <footer class="security-note">
+          <div class="security-icon" aria-hidden="true">
+            <img src="image/shield.svg" alt="Shield check" width="20" height="20">
+          </div>
+          <p class="security-text">
+            Keys are generated in your browser, encrypted with your password, and never leave this device.
+          </p>
+        </footer>
+
+      </form>
+
+    </section>
+  </main>
+
+  <!-- Notification Toast -->
+  <div id="toastNotice" class="toast-notice" role="status" aria-live="polite">
+    <img src="image/check.svg" alt="Check" width="18" height="18">
+    <span id="toastMessage">Action completed</span>
+  </div>
+
+  <script src="js/script.js"></script>
+</body>
+</html>

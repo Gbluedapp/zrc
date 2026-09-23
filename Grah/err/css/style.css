@@ -1,0 +1,318 @@
+/* ==========================================================================
+   WalletConnect Error Page Clone - Vanilla CSS Stylesheet
+   Meticulous pixel-level replica of the original layout and typography
+   ========================================================================== */
+
+:root {
+  --bg-color: #060714;
+  --bg-center: #0c0e29;
+  --bg-edge: #03040a;
+  --alert-orange: #e05a2b;
+  --alert-orange-hover: #d25023;
+  --alert-orange-active: #c5471c;
+  --text-white: #ffffff;
+  --text-secondary: rgba(255, 255, 255, 0.85);
+  --font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --border-radius-box: 10px;
+  --box-width: 440px;
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body {
+  width: 100%;
+  height: 100%;
+  min-height: 100vh;
+  background-color: var(--bg-color);
+  background-image: 
+    radial-gradient(ellipse at center, var(--bg-center) 0%, var(--bg-color) 65%, var(--bg-edge) 100%),
+    url('../image/background.png');
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+  color: var(--text-white);
+  font-family: var(--font-family);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow-x: hidden;
+  position: relative;
+}
+
+/* Background image overlay container */
+.bg-layer {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: radial-gradient(circle at 50% 50%, rgba(12, 14, 41, 0.8) 0%, rgba(6, 7, 20, 0.95) 75%, rgba(3, 4, 10, 1) 100%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Center Content Wrapper */
+.page-container {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  max-width: 100%;
+  padding: 24px;
+}
+
+/* Brand Section (Broken Logo Alt + Walletconnect) */
+.brand-header {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 26px;
+  user-select: none;
+  gap: 12px;
+}
+
+/* Logo container supporting both screenshot broken-image replica and loaded logo */
+.logo-box {
+  display: inline-flex;
+  align-items: center;
+  cursor: pointer;
+  transition: opacity 0.15s ease;
+}
+
+.logo-box:hover {
+  opacity: 0.85;
+}
+
+/* Exact replica of browser's broken image with 'Logo' alt text */
+.broken-logo-view {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  color: var(--text-white);
+  font-size: 14.5px;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+}
+
+.broken-icon-svg {
+  width: 16px;
+  height: 16px;
+  stroke: var(--text-white);
+  flex-shrink: 0;
+}
+
+.broken-alt-text {
+  line-height: 1;
+  font-size: 14.5px;
+}
+
+/* Loaded official logo view */
+.loaded-logo-view {
+  display: none;
+  align-items: center;
+  gap: 8px;
+}
+
+.loaded-logo-img {
+  width: 24px;
+  height: 24px;
+  object-fit: contain;
+}
+
+/* Text: 'Walletconnect' */
+.brand-title {
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--text-white);
+  letter-spacing: -0.015em;
+  margin: 0;
+  line-height: 1.2;
+}
+
+/* Error Alert Box */
+.error-card {
+  background-color: var(--alert-orange);
+  color: var(--text-white);
+  border-radius: var(--border-radius-box);
+  padding: 20px 24px;
+  width: var(--box-width);
+  max-width: calc(100vw - 32px);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4), 0 3px 10px rgba(224, 90, 43, 0.25);
+  cursor: default;
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.2s ease, background-color 0.2s ease;
+  outline: none;
+  position: relative;
+  overflow: hidden;
+}
+
+.error-card:hover {
+  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.5), 0 4px 14px rgba(224, 90, 43, 0.35);
+}
+
+.error-card:active {
+  transform: scale(0.995);
+}
+
+/* Warning Diamond Icon */
+.error-icon-wrapper {
+  margin-bottom: 11px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.warning-diamond-icon {
+  width: 20px;
+  height: 20px;
+  display: block;
+}
+
+/* Error Message Text */
+.error-message {
+  font-size: 15.5px;
+  font-weight: 500;
+  line-height: 1.38;
+  letter-spacing: -0.01em;
+  color: var(--text-white);
+  word-break: break-word;
+}
+
+/* Subtle Interactive Toast Notification for user feedback */
+.toast-notice {
+  position: fixed;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%) translateY(20px);
+  background: rgba(20, 24, 45, 0.95);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  color: #ffffff;
+  padding: 10px 18px;
+  border-radius: 20px;
+  font-size: 13px;
+  font-weight: 500;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.25s ease, transform 0.25s ease;
+  z-index: 100;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+}
+
+.toast-notice.visible {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
+/* Subtle Action Bar on bottom for clone utility */
+.utility-bar {
+  position: fixed;
+  bottom: 16px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  opacity: 0.35;
+  transition: opacity 0.2s ease;
+  z-index: 10;
+}
+
+.utility-bar:hover {
+  opacity: 0.9;
+}
+
+.utility-btn {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 12px;
+  font-family: inherit;
+  padding: 6px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+
+.utility-btn:hover {
+  background: rgba(255, 255, 255, 0.16);
+  color: #ffffff;
+}
+
+/* Shake Animation for retry feedback */
+@keyframes card-shake {
+  0%, 100% { transform: translateX(0); }
+  20%, 60% { transform: translateX(-6px); }
+  40%, 80% { transform: translateX(6px); }
+}
+
+.shake {
+  animation: card-shake 0.4s ease-in-out;
+}
+
+/* Pulse animation for retrying state */
+@keyframes retry-pulse {
+  0% { opacity: 1; }
+  50% { opacity: 0.6; }
+  100% { opacity: 1; }
+}
+
+.retrying {
+  animation: retry-pulse 1s infinite ease-in-out;
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 480px) {
+  .page-container {
+    padding: 16px;
+  }
+
+  .brand-header {
+    margin-bottom: 22px;
+    gap: 10px;
+  }
+
+  .brand-title {
+    font-size: 20px;
+  }
+
+  .broken-logo-view {
+    font-size: 13.5px;
+  }
+
+  .error-card {
+    padding: 16px 20px;
+    border-radius: 8px;
+    max-width: 100%;
+  }
+
+  .error-message {
+    font-size: 14.5px;
+    line-height: 1.35;
+  }
+
+  .warning-diamond-icon {
+    width: 18px;
+    height: 18px;
+  }
+
+  .utility-bar {
+    bottom: 8px;
+    gap: 8px;
+  }
+
+  .utility-btn {
+    font-size: 11px;
+    padding: 5px 9px;
+  }
+}

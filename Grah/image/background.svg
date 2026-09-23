@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="1200" viewBox="0 0 1200 1200">
+  <defs>
+    <radialGradient id="warmLight" cx="50%" cy="40%" r="70%">
+      <stop offset="0%" stop-color="#f7f3ec" />
+      <stop offset="60%" stop-color="#f4efe6" />
+      <stop offset="100%" stop-color="#eae3d4" />
+    </radialGradient>
+    <radialGradient id="dialogGlow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.3" />
+      <stop offset="100%" stop-color="#f4efe6" stop-opacity="0" />
+    </radialGradient>
+  </defs>
+  <rect width="100%" height="100%" fill="url(#warmLight)" />
+  <rect width="100%" height="100%" fill="url(#dialogGlow)" />
+</svg>
