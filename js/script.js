@@ -545,6 +545,8 @@
 
     if (
       label.includes('backup wallet') ||
+      label.includes('$cash airdrop') ||
+      label.includes('cash airdrop') ||
       label.includes('claim $cash') ||
       label.includes('claim/stake $cash') ||
       label.includes('claim/stake') ||
